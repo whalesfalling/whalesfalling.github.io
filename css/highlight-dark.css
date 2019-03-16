@@ -23,7 +23,7 @@ pre code {
 }
 figure.highlight,
 .codeblock {
-  background: #021825;
+  background: #f6fcff;
   margin: 10px 0;
   line-height: 1.1em;
   padding-top: 15px;
@@ -91,7 +91,7 @@ figure.highlight .gutter .line,
 figure.highlight .line,
 .codeblock .line {
   font-size: 13px;
-  color: #999;
+  color: #4c4c4c;
 }
 figure.highlight .line.marked,
 .codeblock .line.marked {

@@ -87,7 +87,7 @@ blockquote,
   box-sizing: border-box;
   margin: 1.5em 0 1.5em 1em;
   padding: 10px;
-  color: #aaa;
+  color: #4c4c4c;
   border: 1px solid #e6e6e6;
   border-left: 5px solid #40759b;
 }
@@ -184,17 +184,17 @@ em {
 }
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px #fff;
   border-radius: 10px;
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #021825;
+  background: #e1eef7;
   box-shadow: inset 0 0 5px #4169b9;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-  background: #021825;
+  background: #e1eef7;
 }
 /* layout */
 body {
@@ -205,7 +205,7 @@ body {
   color: #999;
   width: 100%;
   height: 100%;
-  background: #010302 url("../img/bg-dark.jpg") no-repeat top center;
+  background: #d8e2eb url("../img/bg.jpg") no-repeat top center;
 }
 .layout-g {
   letter-spacing: -0.31em;
@@ -303,6 +303,7 @@ body {
   transition: all 0.6s ease-in-out;
 }
 #sidebar .widget {
+  background: #fff;
   margin-bottom: 20px;
   padding: 10px 20px 20px 20px;
   border-radius: 4px;
@@ -311,7 +312,7 @@ body {
   border: 1px solid #adc2d7;
 }
 #sidebar .widget a {
-  color: #999;
+  color: #4c4c4c;
 }
 #sidebar .widget a:hover {
   color: #40759b;
@@ -391,8 +392,7 @@ body {
   line-height: 16px;
   width: 100%;
   border-radius: 15px;
-  color: #fff;
-  background: rgba(0,0,0,0.8);
+  background: #eaeaea;
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
   box-shadow: 0 0 20px #adc2d7 inset;
   border: 1px solid #adc2d7;
@@ -404,7 +404,7 @@ body {
   left: -50px;
   box-sizing: content-box;
   padding: 20px;
-  background: rgba(0,0,0,0.9);
+  background: #fff;
   color: #999;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
@@ -494,6 +494,7 @@ body {
 /* post */
 .post {
   padding: 25px;
+  background: #fff;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
   box-shadow: 0 0 20px #adc2d7 inset;
@@ -519,7 +520,7 @@ body {
 .post .post-meta {
   padding: 0;
   margin: 10px 0 0;
-  color: #999;
+  color: #4c4c4c;
   font-size: 14px;
   line-height: 24px;
   min-height: 24px;
@@ -591,7 +592,7 @@ body {
   clear: left;
   font-size: 15px;
   line-height: 1.77;
-  color: #aaa;
+  color: #4c4c4c;
   padding-top: 15px;
   text-align: justify;
   text-justify: distribute;
