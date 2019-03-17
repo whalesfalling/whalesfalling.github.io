@@ -205,7 +205,7 @@ body {
   color: #999;
   width: 100%;
   height: 100%;
-  background: #d8e2eb url("../img/bg.jpg") no-repeat top center;
+  background: #010302 url("../img/bg-dark.jpg") no-repeat top center;
 }
 .layout-g {
   letter-spacing: -0.31em;
@@ -303,10 +303,10 @@ body {
   transition: all 0.6s ease-in-out;
 }
 #sidebar .widget {
-  background: #fff;
   margin-bottom: 20px;
   padding: 10px 20px 20px 20px;
   border-radius: 4px;
+  background: rgba(0,0,0,0.8);
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
   box-shadow: 0 0 20px #adc2d7 inset;
   border: 1px solid #adc2d7;
@@ -392,7 +392,7 @@ body {
   line-height: 16px;
   width: 100%;
   border-radius: 15px;
-  background: #eaeaea;
+  background: rgba(0,0,0,0.8);
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
   box-shadow: 0 0 20px #adc2d7 inset;
   border: 1px solid #adc2d7;
@@ -404,7 +404,7 @@ body {
   left: -50px;
   box-sizing: content-box;
   padding: 20px;
-  background: #fff;
+  background: rgba(0,0,0,0.9);
   color: #999;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
@@ -494,7 +494,6 @@ body {
 /* post */
 .post {
   padding: 25px;
-  background: #fff;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 20px #adc2d7 inset;
   box-shadow: 0 0 20px #adc2d7 inset;
@@ -1204,10 +1203,10 @@ table td {
   }
   #search-form input {
     color: #fff;
-    background: transparent;
-    border: 1px solid #e2eaf1;
-    -webkit-box-shadow: 0 0 10px #adc2d7 inset;
-    box-shadow: 0 0 10px #adc2d7 inset;
+    background: rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0 0 20px #adc2d7 inset;
+    box-shadow: 0 0 20px #adc2d7 inset;
+    border: 1px solid #adc2d7;
   }
   #search-form input:-ms-input-placeholder {
     color: #fff;
