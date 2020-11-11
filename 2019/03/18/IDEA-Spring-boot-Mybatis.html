@@ -97,11 +97,11 @@
                 </span>
                 
                 
-                
-                <span id="busuanzi_container_page_pv">
+                <span id="/2019/03/18/IDEA-Spring-boot-Mybatis.html" class="leancloud_visitors" data-flag-title="IDEA SPringBoot Mybatis 整合">
                     <b class="iconfont icon-read"></b> <i>阅读次数</i>
-                    <span id="busuanzi_value_page_pv">0</span>
+                    <span class="leancloud-visitors-count">1000000</span>
                 </span>
+                
                 
             </p>
             
@@ -215,13 +215,15 @@
 
             
             
+            <div id="vcomments"></div>
+            
         </div>
         <div class="sidebar">
             <div class="box animated fadeInRight">
                 <div class="subbox">
                     <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height="300" width="300">
                     <p>罗韬(Whale Fall·T)</p>
-                    <span>Think like an artist, develop like an artisan</span>
+                    <span>A nine story platform begins with a pile of soil; a journey of a thousand miles begins with a single step</span>
                     <dl>
                         <dd><a href="https://github.com/TriDiamond" target="_blank"><span class=" iconfont icon-github"></span></a></dd>
                         <dd><a href="https://twitter.com/TriDiamond6" target="_blank"><span class=" iconfont icon-twitter"></span></a></dd>
@@ -408,7 +410,7 @@
     var typedTextEl = $('.typed-text');
     if (typedTextEl && typedTextEl.length > 0) {
       var typed = new Typed('.typed-text', {
-        strings: ['Think like an artist, develop like an artisan', '艺术家思维去思考问题，工匠创造精神去开发'],
+        strings: ['A nine story platform begins with a pile of soil; a journey of a thousand miles begins with a single step', '九层之台，始于垒土；千里之行，始于足下'],
         typeSpeed: 90,
         loop: true,
         loopCount: Infinity,
@@ -424,6 +426,36 @@
   }
 </script>
 
+ <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var valine = new Valine();
+
+  function initValine(path) {
+    if (!path) path = window.location.pathname;
+    let language = 'zh-CN';
+    if (!language) {
+      language = 'en';
+    } else {
+      language = language.toLowerCase();
+    }
+    valine.init({
+      el: '#vcomments',
+      appId: 'YwPqf3YyKiyKVGazKccpq1eN-gzGzoHsz',
+      appKey: 'XcJO4tFB2gyOLWt85ndRFpCD',
+      notify: 'false',
+      verify: 'false',
+      avatar: 'mp',
+      placeholder: 'Leave your throughs behind~',
+      visitor: 'true',
+      path: path,
+      lang: language,
+    });
+  }
+
+  $(document).ready(function () {
+    initValine();
+  });
+</script>
 
 
 
