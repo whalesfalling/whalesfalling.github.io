@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>编程小技巧 - @Data与@Slf4j的使用 - Whale Fall·T</title>
+    <title>HashMap底层数据结构分析 - Whale Fall·T</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="TriDiamond Obsidian,"> 
-    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,前言​        最近在项目中发现两个很好使用的注解，在这里分享给大家；
-描述​        @Data:   使用此注解后，自动生成setter、getter方法；
-​        @sl,"> 
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,1.HashMap 的底层是数组1234567// 参考代码HashMap&amp;lt;String, String&amp;gt; map = new HashMap&amp;lt;String, String&amp;gt;,"> 
     <meta name="author" content="罗韬"> 
     <link rel="alternative" href="atom.xml" title="Whale Fall·T" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -45,7 +43,7 @@
     <div class="navigation animated fadeIn fast delay-1s">
         <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="http://whalesfall.cn">
         <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
-        <h3 class="subtitle">编程小技巧 - @Data与@Slf4j的使用</h3>
+        <h3 class="subtitle">HashMap底层数据结构分析</h3>
         <div class="social">
             <!--        <div class="like-icon">-->
             <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -75,29 +73,28 @@
         <div class="else">
             <p class="animated fadeInDown">
                 
-                <a href="/categories/编程小技巧"><b>「
-                    </b>编程小技巧<b> 」</b></a>
+                <a href="javascript:;"><b>「 </b>文章<b> 」</b></a>
                 
-                四月 25, 2019
+                十一月 17, 2020
             </p>
-            <h3 class="post-title animated fadeInDown"><a href="/2019/04/25/theBk-20190425.html" title="编程小技巧 - @Data与@Slf4j的使用">编程小技巧 - @Data与@Slf4j的使用</a>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/11/17/202001117-001.html" title="HashMap底层数据结构分析">HashMap底层数据结构分析</a>
             </h3>
             
             <p class="post-count animated fadeInDown">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    12k
+                    6.4k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    11 mins.
+                    6 mins.
                 </span>
                 
                 
-                <span id="/2019/04/25/theBk-20190425.html" class="leancloud_visitors" data-flag-title="编程小技巧 - @Data与@Slf4j的使用">
+                <span id="/2020/11/17/202001117-001.html" class="leancloud_visitors" data-flag-title="HashMap底层数据结构分析">
                     <b class="iconfont icon-read"></b> <i>阅读次数</i>
                     <span class="leancloud-visitors-count">1000000</span>
                 </span>
@@ -106,7 +103,7 @@
             </p>
             
             
-            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/编程小技巧/">编程小技巧</a></li></ul>
+            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/底层原理/">底层原理</a></li></ul>
             
         </div>
     </div>
@@ -127,29 +124,15 @@
 <div class="article">
     <div class='main'>
         <div class="content markdown animated fadeIn">
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        最近在项目中发现两个很好使用的注解，在这里分享给大家；</p>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>​        <strong>@Data:</strong>   使用此注解后，自动生成setter、getter方法；</p>
-<p>​        <strong>@slf4: </strong> 如果不想每次都写Logger,可以用注解@Slf4j</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>  <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(XXX<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
-</code></pre><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>在pom文件加入依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>@Data:</strong>   </p>
-<p>未使用@data之前：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnergySource</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span> String A;</span><br><span class="line"><span class="keyword">private</span> String B;</span><br><span class="line"><span class="keyword">private</span> String C</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> A;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> B;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getC</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(String a)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.A = a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setB</span><span class="params">(String b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.B= b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setC</span><span class="params">(String c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.C= C;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 使用了@Data注解以后</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnergySource</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String a;</span><br><span class="line">    <span class="keyword">private</span> String b;</span><br><span class="line">    <span class="keyword">private</span> String c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很明显，代码简洁了许多，看上去不会太复杂。不过这里需要在IDE中配置好lombok，由此看来，一些工具的使用可以大大增加业务逻辑的清晰度。</p>
-<p><strong><em>@Slf4j</em></strong>:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sell;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *   日志测试</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">@<span class="title">SpringBootTest</span></span></span><br><span class="line"><span class="class">@<span class="title">Slf4j</span></span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">LoggerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(LoggerTest<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一、传统方式实现日志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.debug(<span class="string">"debug message"</span>);</span><br><span class="line">        logger.warn(<span class="string">"warn message"</span>);</span><br><span class="line">        logger.info(<span class="string">"info message"</span>);</span><br><span class="line">        logger.error(<span class="string">"error message"</span>);</span><br><span class="line">        logger.trace(<span class="string">"trace message"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 二、注解方式实现日志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        log.debug(<span class="string">"debug message"</span>);</span><br><span class="line">        log.warn(<span class="string">"warn message"</span>);</span><br><span class="line">        log.info(<span class="string">"info message"</span>);</span><br><span class="line">        log.error(<span class="string">"error message"</span>);</span><br><span class="line">        log.trace(<span class="string">"trace message"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出如下：</p>
-<p><img src="/2019/04/25/theBk-20190425/pic1.png" alt="pic1"></p>
-<p>注意：如果注解@Slf4j注入后找不到变量log，那就给IDE安装lombok插件</p>
-<p>下面以idea为例</p>
-<p>1、File  → settings →  Plugins,  然后点击“Browse repositories” 如图</p>
-<p><img src="/2019/04/25/theBk-20190425/pic2.png" alt="pic2"></p>
-<p>2、输入 lombok 搜索插件， 点install安装，安装完重启idea</p>
-<p><img src="/2019/04/25/theBk-20190425/pic3.png" alt="pic3"></p>
-<p>这时候输入 log就可以有提示了</p>
+            <h3 id="1-HashMap-的底层是数组"><a href="#1-HashMap-的底层是数组" class="headerlink" title="1.HashMap 的底层是数组"></a>1.HashMap 的底层是数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参考代码</span></span><br><span class="line">HashMap&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">map.push(<span class="string">"张三"</span>，<span class="string">"测试数据1"</span>);</span><br><span class="line">map.push(<span class="string">"李四"</span>，<span class="string">"测试数据2"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 底层的数据类型简单展示，当然实际上远远没有这么简单，这里是方便理解</span></span><br><span class="line">[&lt;张三， 测试数据<span class="number">1</span>&gt;, &lt;李四， 测试数据<span class="number">2</span>&gt;]</span><br></pre></td></tr></table></figure>
+<h3 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.底层原理"></a>2.底层原理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 首先会根据<span class="string">'张三'</span>这个 key 计算出它的 Hash 值；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 拿到 Hash 值对数组的长度进行取模（数组是有固定长度的），定位到将要存入的数组中的指定位置；</span><br><span class="line">   [&lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;张三, 测试数据<span class="number">1</span>&gt;, &lt;&gt;, &lt;李四, 测试数据<span class="number">2</span>&gt;, &lt;&gt;]</span><br><span class="line">   </span><br><span class="line"><span class="number">3</span>. 取值原理也是先计算处 Hash 值后进行取模，拿到指定下标获取元素；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. 实际上 JDK 中 HashMap 的原理要比以上的逻辑复杂一些，还有一些防止 Hash 重复，数组扩容的操作等等；</span><br></pre></td></tr></table></figure>
+<h3 id="3-JDK-1-8中对Hash算法和寻址算法的优化"><a href="#3-JDK-1-8中对Hash算法和寻址算法的优化" class="headerlink" title="3.JDK 1.8中对Hash算法和寻址算法的优化"></a>3.JDK 1.8中对Hash算法和寻址算法的优化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码示例</span></span><br><span class="line">map.push(<span class="string">"张三"</span>, <span class="string">"测试数据"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.在 JDK 1.8 中对 “张三” 这个 key 计算 Hash 值是有一定的优化的</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (key.hashCode())^(h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比如说： 存在一个 key 的 hash 值</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 1111 1010 0111 1100</span></span><br><span class="line"><span class="comment">// 右移16位（h &gt;&gt;&gt; 16）:</span></span><br><span class="line"><span class="comment">// 0000 0000 0000 0000 1111 1111 1111 1111</span></span><br><span class="line"><span class="comment">// 将两个 hash 进行异或运算（对比是否一样）得出新的 hash 值：</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 0000 0101 1000 0011</span></span><br><span class="line"><span class="comment">// 将转换后的异或 hash（32位） 值转int（32位）进行返回；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 寻址算法优化： n 数组长度</span></span><br><span class="line">(n -<span class="number">1</span>) &amp; hash</span><br><span class="line"></span><br><span class="line"><span class="comment">// 假设数组的长度为 16 位，(n -1) &amp; hash 算出的 hash 值如下：</span></span><br><span class="line"><span class="comment">// 0000 0000 0000 0000 0000 0000 0000 1111</span></span><br><span class="line"><span class="comment">// 没有经过优化 key 的 Hash 值如下：</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 1111 1010 0111 1100</span></span><br><span class="line"><span class="comment">// 优化后的新 hash 值：</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 0000 0101 1000 0011</span></span><br><span class="line"><span class="comment">// 取模的运算性能比较差，(n -1) &amp; hash 运算的效果和取模是一样的， 但是性能比取模高的多；</span></span><br><span class="line"><span class="comment">// 如果使用没有优化过的 hash 值进行 &amp; 运算，两个值的区别很小，容易出现多个 key 算出的位置是一样的情况，因此要进行异或运算</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h3><ol>
+<li><p>Hash 算法的优化： 对每个 hash 值，在他的低 16 位中， 让他的高低 16 位都进行异或运算， 让他的低 16 位同时保持了 高 16 位的特征，尽量避免了一些 hash 值后续出现的冲突，即多个不同的 key 存入同一个数组位置</p>
+</li>
+<li><p>寻址算法的优化： 用 &amp; 运算代替了取模运算，提高了运算的性能；</p>
+</li>
+</ol>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls"
@@ -210,7 +193,7 @@
             <div class="box sticky animated fadeInRight faster">
                 <div id="toc" class="subbox">
                     <h4>目录</h4>
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#描述"><span class="toc-number">2.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-HashMap-的底层是数组"><span class="toc-number">1.</span> <span class="toc-text">1.HashMap 的底层是数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-底层原理"><span class="toc-number">2.</span> <span class="toc-text">2.底层原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-JDK-1-8中对Hash算法和寻址算法的优化"><span class="toc-number">3.</span> <span class="toc-text">3.JDK 1.8中对Hash算法和寻址算法的优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-总结"><span class="toc-number">4.</span> <span class="toc-text">4.总结</span></a></li></ol>
                 </div>
             </div>
             
