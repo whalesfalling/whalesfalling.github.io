@@ -5,12 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>并发编程-synchronized关键字的使用 - Whale Fall·T</title>
+    <title>设计模式的七大原则——迪米特法则(下) - Whale Fall·T</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="TriDiamond Obsidian,"> 
-    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,前言​       在工作中，我们经常会使用到并发编程，synchronized，volatile，ReentranLock，concurrent这几个关键字下的包相信大部分程序员都听说过，这些看似,"> 
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,
+迪米特法则:   最少知道原则，即一个类对自己依赖的类知道的越少越好
+
+迪米特法则代码2:
+1234567891011121314151617181920212223242526272829303,"> 
     <meta name="author" content="罗韬"> 
     <link rel="alternative" href="atom.xml" title="Whale Fall·T" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -43,7 +47,7 @@
     <div class="navigation animated fadeIn fast delay-1s">
         <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://whalesfalling.github.io">
         <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
-        <h3 class="subtitle">并发编程-synchronized关键字的使用</h3>
+        <h3 class="subtitle">设计模式的七大原则——迪米特法则(下)</h3>
         <div class="social">
             <!--        <div class="like-icon">-->
             <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -73,29 +77,29 @@
         <div class="else">
             <p class="animated fadeInDown">
                 
-                <a href="/categories/并发编程"><b>「
-                    </b>并发编程<b> 」</b></a>
+                <a href="/categories/底层原理"><b>「
+                    </b>底层原理<b> 」</b></a>
                 
-                三月 31, 2019
+                十一月 17, 2020
             </p>
-            <h3 class="post-title animated fadeInDown"><a href="/2019/03/31/use-synchronized.html" title="并发编程-synchronized关键字的使用">并发编程-synchronized关键字的使用</a>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/11/17/20201117-005.html" title="设计模式的七大原则——迪米特法则(下)">设计模式的七大原则——迪米特法则(下)</a>
             </h3>
             
             <p class="post-count animated fadeInDown">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    7.7k
+                    11k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    7 mins.
+                    10 mins.
                 </span>
                 
                 
-                <span id="/2019/03/31/use-synchronized.html" class="leancloud_visitors" data-flag-title="并发编程-synchronized关键字的使用">
+                <span id="/2020/11/17/20201117-005.html" class="leancloud_visitors" data-flag-title="设计模式的七大原则——迪米特法则(下)">
                     <b class="iconfont icon-read"></b> <i>阅读次数</i>
                     <span class="leancloud-visitors-count">1000000</span>
                 </span>
@@ -104,7 +108,7 @@
             </p>
             
             
-            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/synchronized/">synchronized</a></li></ul>
+            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/底层原理/">底层原理</a></li></ul>
             
         </div>
     </div>
@@ -125,30 +129,17 @@
 <div class="article">
     <div class='main'>
         <div class="content markdown animated fadeIn">
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​       在工作中，我们经常会使用到并发编程，<em>synchronized</em>，<em>volatile</em>，<em>ReentranLock</em>，<em>concurrent</em>这几个关键字下的包相信大部分程序员都听说过，这些看似高深的代名词，很多人都不懂得如何去使用，滥用的结果往往都需要自己承担后果。在本章中，为大家讲解 <em>synchronized</em> 关键字的使用。</p>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>​       我看过许多关于线程安全方面的书籍，上面对线程安全描述的很笼统，最近在一本老外写的书上，看到对线程安全的很形象描述：</p>
-<blockquote>
-<p><strong>线程安全的概念：</strong>当多个线程访问某一个类（对象或方法）时，这个类始终都能表现出正确的行为，那么这个类（对象或方法）就是线程安全的。</p>
-<p><strong>sysnchronized:</strong> 可以在任意对象及方法上加锁，而加锁的这段代码称为“互斥区”或“临界区”。</p>
+            <blockquote>
+<p>迪米特法则<strong>:   最少知道原则，即一个类对自己依赖的类知道的越少越好</strong></p>
 </blockquote>
-<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">5</span>;</span><br><span class="line">	<span class="comment">// synchronized加锁</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		count--;</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​        我们来读一下这段代码，首先我新建了一个名为 <strong><em>MyThread</em></strong> 的类，并且让这个类继承了 <strong><em>Thread</em></strong> ，在这个类中定义了一个私有变量 <strong><em>count</em></strong> ，初始值为<strong>5</strong>，定义了一个 <strong><em>run()</em></strong> 方法，在这个方法里面对 <strong><em>count</em></strong> 进行了 <strong>–</strong> 操作,然后输出线程的名称和 <strong><em>count</em></strong> 的值。</p>
-<p>​        我们用一个  <strong><em>main</em></strong> 方法来测试一下这个类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line">	Thread t1 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t1"</span>);</span><br><span class="line">	Thread t2 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t2"</span>);</span><br><span class="line">	Thread t3 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t3"</span>);</span><br><span class="line">	Thread t4 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t4"</span>);</span><br><span class="line">	Thread t5 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t5"</span>);</span><br><span class="line">	t1.start();</span><br><span class="line">	t2.start();</span><br><span class="line">	t3.start();</span><br><span class="line">	t4.start();</span><br><span class="line">	t5.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​       输出结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t3 count = <span class="number">2</span></span><br><span class="line">t5 count = <span class="number">0</span></span><br><span class="line">t2 count = <span class="number">1</span></span><br><span class="line">t1 count = <span class="number">1</span></span><br><span class="line">t4 count = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>​        这个结果和我们预期输出的结果是不相符的，我们称它为 <strong>非线程安全</strong> 的，所以我们在 <strong><em>run()</em></strong> 方法上加上 <strong><em>synchronized</em></strong> 关键字，我们再来看下输出的结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">5</span>;</span><br><span class="line">	<span class="comment">// synchronized加锁</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		count--;</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​       输出结果如下，我们称它为 <strong>线程安全</strong> 的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t1 count = <span class="number">4</span></span><br><span class="line">t5 count = <span class="number">3</span></span><br><span class="line">t4 count = <span class="number">2</span></span><br><span class="line">t3 count = <span class="number">1</span></span><br><span class="line">t2 count = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><blockquote>
-<p>​        当多个线程访问 <strong><em>MyThread</em></strong> 的 <strong><em>run()</em></strong> 方法时，会以排队的方式进行处理（这里排队的方式是指CPU分配的先后顺序而定的），一个线程想要执行 <strong>synchronized</strong> 关键字修饰的方法里的代码：</p>
-<ol>
-<li>尝试获得锁；</li>
-<li>如果拿到锁，执行 <strong>synchronized</strong> 代码块里的内容；拿不到锁，会去不断尝试获取这把锁，直到拿到锁为止，而且时多个线程同时去竞争这把锁（也就是会出现 <u>锁竞争</u> 问题）。</li>
-</ol>
-</blockquote>
-<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>锁竞争：即1000个或1000个以上的线程同时访问同一个线程，其中第一个获得后，其他的999个线程同时去竞争第一个调用完成后释放的锁，造成CPU的使用率特别高，系统出现卡顿，宕机的问题，一般出现在大型企业系统中，后面会讲到如何去解决这个问题。</p>
+<p><strong>迪米特法则代码2:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校总部员工类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 员工编号</span></span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校分院员工类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollegeEmployee</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 员工编号</span></span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校分院员工管理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollegeManager</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 分院员工列表</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;CollegeEmployee&gt; <span class="title">getAllEmployee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;CollegeEmployee&gt; employeeList = <span class="keyword">new</span> ArrayList&lt;CollegeEmployee&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">			CollegeEmployee employee = <span class="keyword">new</span> CollegeEmployee();</span><br><span class="line">			employee.setId(<span class="string">" 分院员工编号 = "</span> + i);</span><br><span class="line">			employeeList.add(employee);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> employeeList;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 输出分院员工列表</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printAllEmployee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;CollegeEmployee&gt; employeeList = getAllEmployee();</span><br><span class="line">		System.out.println(<span class="string">"-分院员工列表------------- "</span>);</span><br><span class="line">		<span class="keyword">for</span> (CollegeEmployee c : employeeList) &#123;</span><br><span class="line">			System.out.println(c.getId());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校总部员工管理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SchoolManager</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 总院员工列表</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title">getAllEmployee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;Employee&gt; employeeList = <span class="keyword">new</span> ArrayList&lt;Employee&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">			Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">			employee.setId(<span class="string">" 总部员工编号 = "</span> + i);</span><br><span class="line">			employeeList.add(employee);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> employeeList;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 输出所有员工列表</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printAllEmployee</span><span class="params">(CollegeManager collegeManager)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 输出分院员工列表</span></span><br><span class="line">		collegeManager.printAllEmployee();</span><br><span class="line">		<span class="comment">// 输出所有员工列表</span></span><br><span class="line">		List&lt;Employee&gt; employeeList2 = <span class="keyword">this</span>.getAllEmployee();</span><br><span class="line">		System.out.println(<span class="string">"-总院员工列表------------- "</span>);</span><br><span class="line">		<span class="keyword">for</span> (Employee c : employeeList2) &#123;</span><br><span class="line">			System.out.println(c.getId());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	SchoolManager schoolManager = <span class="keyword">new</span> SchoolManager();</span><br><span class="line">	schoolManager.printAllEmployee(<span class="keyword">new</span> CollegeManager());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>迪米特法则的核心是降低类之间的耦合；</li>
+<li>由于每个类都减少了必要的依赖，但是迪米特法则只是要求降低类间(对象间)的耦合，并不是要求完全没有依赖关系；</li>
+</ul>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls"
@@ -205,13 +196,6 @@
             </div>
             
             
-            
-            <div class="box sticky animated fadeInRight faster">
-                <div id="toc" class="subbox">
-                    <h4>目录</h4>
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#描述"><span class="toc-number">2.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码示例"><span class="toc-number">3.</span> <span class="toc-text">代码示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果分析"><span class="toc-number">4.</span> <span class="toc-text">结果分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备注"><span class="toc-number">5.</span> <span class="toc-text">备注</span></a></li></ol>
-                </div>
-            </div>
             
             
         </div>

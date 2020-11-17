@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>并发编程-synchronized关键字的使用 - Whale Fall·T</title>
+    <title>前端框架 VUE 开发问题总结 - Whale Fall·T</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="TriDiamond Obsidian,"> 
-    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,前言​       在工作中，我们经常会使用到并发编程，synchronized，volatile，ReentranLock，concurrent这几个关键字下的包相信大部分程序员都听说过，这些看似,"> 
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,
+页面属性渲染问题在 vue 的开发中, 我们最常用的是 vue 的双向绑定的属性，我们将属性定义在 data () { 属性名：属性默认值 } 中，同时在页面中使用 ，vue 在加载时会将默认值渲,"> 
     <meta name="author" content="罗韬"> 
     <link rel="alternative" href="atom.xml" title="Whale Fall·T" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -43,7 +44,7 @@
     <div class="navigation animated fadeIn fast delay-1s">
         <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://whalesfalling.github.io">
         <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
-        <h3 class="subtitle">并发编程-synchronized关键字的使用</h3>
+        <h3 class="subtitle">前端框架 VUE 开发问题总结</h3>
         <div class="social">
             <!--        <div class="like-icon">-->
             <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -73,29 +74,29 @@
         <div class="else">
             <p class="animated fadeInDown">
                 
-                <a href="/categories/并发编程"><b>「
-                    </b>并发编程<b> 」</b></a>
+                <a href="/categories/问题总结"><b>「
+                    </b>问题总结<b> 」</b></a>
                 
-                三月 31, 2019
+                十一月 17, 2020
             </p>
-            <h3 class="post-title animated fadeInDown"><a href="/2019/03/31/use-synchronized.html" title="并发编程-synchronized关键字的使用">并发编程-synchronized关键字的使用</a>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/11/17/20201117-002.html" title="前端框架 VUE 开发问题总结">前端框架 VUE 开发问题总结</a>
             </h3>
             
             <p class="post-count animated fadeInDown">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    7.7k
+                    733
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    7 mins.
+                    1 mins.
                 </span>
                 
                 
-                <span id="/2019/03/31/use-synchronized.html" class="leancloud_visitors" data-flag-title="并发编程-synchronized关键字的使用">
+                <span id="/2020/11/17/20201117-002.html" class="leancloud_visitors" data-flag-title="前端框架 VUE 开发问题总结">
                     <b class="iconfont icon-read"></b> <i>阅读次数</i>
                     <span class="leancloud-visitors-count">1000000</span>
                 </span>
@@ -104,7 +105,7 @@
             </p>
             
             
-            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/synchronized/">synchronized</a></li></ul>
+            <ul class="animated fadeInDown post-tags-list"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/问题总结/">问题总结</a></li></ul>
             
         </div>
     </div>
@@ -125,30 +126,10 @@
 <div class="article">
     <div class='main'>
         <div class="content markdown animated fadeIn">
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​       在工作中，我们经常会使用到并发编程，<em>synchronized</em>，<em>volatile</em>，<em>ReentranLock</em>，<em>concurrent</em>这几个关键字下的包相信大部分程序员都听说过，这些看似高深的代名词，很多人都不懂得如何去使用，滥用的结果往往都需要自己承担后果。在本章中，为大家讲解 <em>synchronized</em> 关键字的使用。</p>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>​       我看过许多关于线程安全方面的书籍，上面对线程安全描述的很笼统，最近在一本老外写的书上，看到对线程安全的很形象描述：</p>
-<blockquote>
-<p><strong>线程安全的概念：</strong>当多个线程访问某一个类（对象或方法）时，这个类始终都能表现出正确的行为，那么这个类（对象或方法）就是线程安全的。</p>
-<p><strong>sysnchronized:</strong> 可以在任意对象及方法上加锁，而加锁的这段代码称为“互斥区”或“临界区”。</p>
-</blockquote>
-<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">5</span>;</span><br><span class="line">	<span class="comment">// synchronized加锁</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		count--;</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​        我们来读一下这段代码，首先我新建了一个名为 <strong><em>MyThread</em></strong> 的类，并且让这个类继承了 <strong><em>Thread</em></strong> ，在这个类中定义了一个私有变量 <strong><em>count</em></strong> ，初始值为<strong>5</strong>，定义了一个 <strong><em>run()</em></strong> 方法，在这个方法里面对 <strong><em>count</em></strong> 进行了 <strong>–</strong> 操作,然后输出线程的名称和 <strong><em>count</em></strong> 的值。</p>
-<p>​        我们用一个  <strong><em>main</em></strong> 方法来测试一下这个类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line">	Thread t1 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t1"</span>);</span><br><span class="line">	Thread t2 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t2"</span>);</span><br><span class="line">	Thread t3 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t3"</span>);</span><br><span class="line">	Thread t4 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t4"</span>);</span><br><span class="line">	Thread t5 = <span class="keyword">new</span> Thread(myThread,<span class="string">"t5"</span>);</span><br><span class="line">	t1.start();</span><br><span class="line">	t2.start();</span><br><span class="line">	t3.start();</span><br><span class="line">	t4.start();</span><br><span class="line">	t5.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​       输出结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t3 count = <span class="number">2</span></span><br><span class="line">t5 count = <span class="number">0</span></span><br><span class="line">t2 count = <span class="number">1</span></span><br><span class="line">t1 count = <span class="number">1</span></span><br><span class="line">t4 count = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>​        这个结果和我们预期输出的结果是不相符的，我们称它为 <strong>非线程安全</strong> 的，所以我们在 <strong><em>run()</em></strong> 方法上加上 <strong><em>synchronized</em></strong> 关键字，我们再来看下输出的结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">5</span>;</span><br><span class="line">	<span class="comment">// synchronized加锁</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		count--;</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​       输出结果如下，我们称它为 <strong>线程安全</strong> 的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t1 count = <span class="number">4</span></span><br><span class="line">t5 count = <span class="number">3</span></span><br><span class="line">t4 count = <span class="number">2</span></span><br><span class="line">t3 count = <span class="number">1</span></span><br><span class="line">t2 count = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><blockquote>
-<p>​        当多个线程访问 <strong><em>MyThread</em></strong> 的 <strong><em>run()</em></strong> 方法时，会以排队的方式进行处理（这里排队的方式是指CPU分配的先后顺序而定的），一个线程想要执行 <strong>synchronized</strong> 关键字修饰的方法里的代码：</p>
-<ol>
-<li>尝试获得锁；</li>
-<li>如果拿到锁，执行 <strong>synchronized</strong> 代码块里的内容；拿不到锁，会去不断尝试获取这把锁，直到拿到锁为止，而且时多个线程同时去竞争这把锁（也就是会出现 <u>锁竞争</u> 问题）。</li>
+            <ol>
+<li><strong>页面属性渲染问题</strong><br>在 vue 的开发中, 我们最常用的是 vue 的双向绑定的属性，我们将属性定义在 <code>data () { 属性名：属性默认值 }</code> 中，同时在页面中使用 <code></code>，vue 在加载时会将默认值渲染到 <code></code> 中进行显示，当在 js 中通过 <code>this.属性名 = XXX</code> 进行修改值时，<code></code> 会被实时同步修改显示，如果在开发中遇到修改值，页面未同步改变问题时，需要排查当前 this 的指向问题，看当前的 this 是否指定的是全局的，这里推荐是用箭头函数：  <code>方法名 = (传入参数值) =&gt; {  this.属性名 = xxx }</code>  的方式进行修改，在此箭头函数中 this 永远指向的是全局的。如果还是遇到无法同步渲染的问题，就需要排查定义的属性，修改的属性，页面显示的属性是否大小写一致，是否完全相同等。</li>
+<li><strong>集合修改其中一项的值，页面未同步渲染问题</strong><br>我们在 vue 的开发中往往需要修改集合中某一项的值，如:下拉框的选中属性，当我们将集合中的其中一项进行修改后，js 通过 log 输出的值发生改变，页面显示却无变化时，我们可以使用 this.$ set() 方法进行渲染集合，此方法的语法如下：<code>this.$ set(this.需要修改的集合，集合中需要修改项的下标，修改项的值)</code> 通过此方法，集合中的参数发生变化时，页面也会进行同步渲染。</li>
 </ol>
-</blockquote>
-<h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><p>锁竞争：即1000个或1000个以上的线程同时访问同一个线程，其中第一个获得后，其他的999个线程同时去竞争第一个调用完成后释放的锁，造成CPU的使用率特别高，系统出现卡顿，宕机的问题，一般出现在大型企业系统中，后面会讲到如何去解决这个问题。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls"
@@ -205,13 +186,6 @@
             </div>
             
             
-            
-            <div class="box sticky animated fadeInRight faster">
-                <div id="toc" class="subbox">
-                    <h4>目录</h4>
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#描述"><span class="toc-number">2.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码示例"><span class="toc-number">3.</span> <span class="toc-text">代码示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果分析"><span class="toc-number">4.</span> <span class="toc-text">结果分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备注"><span class="toc-number">5.</span> <span class="toc-text">备注</span></a></li></ol>
-                </div>
-            </div>
             
             
         </div>
