@@ -130,8 +130,8 @@
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        最近在项目中发现两个很好使用的注解，在这里分享给大家；</p>
 <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>​        <strong>@Data:</strong>   使用此注解后，自动生成setter、getter方法；</p>
 <p>​        <strong>@slf4: </strong> 如果不想每次都写Logger,可以用注解@Slf4j</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>  <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(XXX<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
-</code></pre><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>在pom文件加入依赖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>  <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(XXX<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>在pom文件加入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><strong>@Data:</strong>   </p>
 <p>未使用@data之前：</p>
