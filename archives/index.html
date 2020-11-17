@@ -137,10 +137,9 @@
                                     </div>
                                     <div class="timeline-marker"></div>
                                     <div class="timeline-content">
-                                        <a class="timeline-title" target="_self" href="/2020/11/17/20201117-002.html">前端框架 VUE 开发问题总结</a>
+                                        <a class="timeline-title" target="_self" href="/2020/11/17/20201117-001.html">HashMap底层原理</a>
                                         <p>
-                                            
-页面属性渲染问题在 vue 的开发中, 我们最常用的是 vue 的双向绑定的属性，我们将属性定义在 data () { 属性名：属性默认值 } 中，同时在页面中使用 ，vue 在加载时会将默认值渲染到  中进行显示，当在 js 中通过 this.属性名 = XXX 进行修改值时， 会被实时同步修改显示，如果在开发中遇到修改值，页面未同步改变问题时，需要排查当前 this 的指向问题，看当前...
+                                            1.HashMap 的底层是数组1234567// 参考代码HashMap&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();map.push("张三"，"测试数据1");map.push("李四"，"测试数据2");// 底层的数据类型简单展示，当然实际上远远没有这么简单，这里是方便理解[&lt;张三， 测试数据...
                                         </p>
                                     </div>
                                 </li>
@@ -152,9 +151,10 @@
                                     </div>
                                     <div class="timeline-marker"></div>
                                     <div class="timeline-content">
-                                        <a class="timeline-title" target="_self" href="/2020/11/17/20201117-001.html">HashMap底层数据结构分析</a>
+                                        <a class="timeline-title" target="_self" href="/2020/11/17/20201117-002.html">前端框架 VUE 开发问题总结</a>
                                         <p>
-                                            1.HashMap 的底层是数组1234567// 参考代码HashMap&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();map.push("张三"，"测试数据1");map.push("李四"，"测试数据2");// 底层的数据类型简单展示，当然实际上远远没有这么简单，这里是方便理解[&lt;张三， 测试数据...
+                                            
+页面属性渲染问题在 vue 的开发中, 我们最常用的是 vue 的双向绑定的属性，我们将属性定义在 data () { 属性名：属性默认值 } 中，同时在页面中使用 ，vue 在加载时会将默认值渲染到  中进行显示，当在 js 中通过 this.属性名 = XXX 进行修改值时， 会被实时同步修改显示，如果在开发中遇到修改值，页面未同步改变问题时，需要排查当前 this 的指向问题，看当前...
                                         </p>
                                     </div>
                                 </li>
