@@ -123,7 +123,8 @@
     <div id="post0" class="else">
         <p class="animated fadeInDown">
             
-            <a href="javascript:;"><b>「 </b>文章<b> 」</b></a>
+            <a href="/categories/底层原理"><b>「
+                </b>底层原理<b> 」</b></a>
             
             十一月 17, 2020
         </p>
@@ -156,7 +157,8 @@
         
         <div class="md-content animated fadeIn">
             
-            <h3 id="1-HashMap-的底层是数组"><a href="#1-HashMap-的底层是数组" class="headerlink" title="1.HashMap 的底层是数组"></a>1.HashMap 的底层是数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参考代码</span></span><br><span class="line">HashMap&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;(...</span></pre></td></tr></table></figure>
+            <h3 id="1-HashMap-的底层是数组"><a href="#1-HashMap-的底层是数组" class="headerlink" title="1.HashMap 的底层是数组"></a>1.HashMap 的底层是数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参考代码</span></span><br><span class="line">HashMap&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">map.push(<span class="string">"张三"</span>，<span class="string">"测试数据1"</span>);</span><br><span class="line">map.push(<span class="string">"李四"</span>，<span class="string">"测试数据2"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 底层的数据类型简单展示，当然实际上远远没有这么简单，这里是方便理解</span></span><br><span class="line">[&lt;张三， 测试数据<span class="number">1</span>&gt;, &lt;李四， 测试数据<span class="number">2</span>&gt;]</span><br></pre></td></tr></table></figure>
+<h3 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.底层原理"></a>2.底层原理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 首先会根据<span class="string">'张三'</span>这个 key 计算出它的 Hash 值；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 拿到 Hash 值对数组的长度进行取模（数组是有固定长度...</span></pre></td></tr></table></figure>
             
             <span class="read-more"><a href="/2020/11/17/202001117-001.html" title="查看全文" class="posttitle">查看全文</a>
                 <b class="iconfont icon-arrow-right- gradient-text"></b></span>
