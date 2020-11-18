@@ -10,7 +10,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="TriDiamond Obsidian,"> 
-    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,1.HashMap 的底层是数组1234567// 参考代码HashMap&amp;lt;String, String&amp;gt; map = new HashMap&amp;lt;String, String&amp;gt;,"> 
+    <meta name="description" content="路漫漫其修远兮，吾将上下而求索,1.HashMap 的底层是数组1
+2
+3
+4
+5
+6
+7
+// 参考代码
+HashMap&amp;lt;String, String&amp;gt; map = new HashMap&amp;lt;String, St,"> 
     <meta name="author" content="罗韬"> 
     <link rel="alternative" href="atom.xml" title="Whale Fall·T" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -85,7 +93,7 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    6.4k
+                    6.1k
                 </span>
                 
                 
@@ -125,9 +133,95 @@
 <div class="article">
     <div class='main'>
         <div class="content markdown animated fadeIn">
-            <h3 id="1-HashMap-的底层是数组"><a href="#1-HashMap-的底层是数组" class="headerlink" title="1.HashMap 的底层是数组"></a>1.HashMap 的底层是数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参考代码</span></span><br><span class="line">HashMap&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">map.push(<span class="string">"张三"</span>，<span class="string">"测试数据1"</span>);</span><br><span class="line">map.push(<span class="string">"李四"</span>，<span class="string">"测试数据2"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 底层的数据类型简单展示，当然实际上远远没有这么简单，这里是方便理解</span></span><br><span class="line">[&lt;张三， 测试数据<span class="number">1</span>&gt;, &lt;李四， 测试数据<span class="number">2</span>&gt;]</span><br></pre></td></tr></table></figure>
-<h3 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.底层原理"></a>2.底层原理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 首先会根据<span class="string">'张三'</span>这个 key 计算出它的 Hash 值；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 拿到 Hash 值对数组的长度进行取模（数组是有固定长度的），定位到将要存入的数组中的指定位置；</span><br><span class="line">   [&lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;张三, 测试数据<span class="number">1</span>&gt;, &lt;&gt;, &lt;李四, 测试数据<span class="number">2</span>&gt;, &lt;&gt;]</span><br><span class="line">   </span><br><span class="line"><span class="number">3</span>. 取值原理也是先计算处 Hash 值后进行取模，拿到指定下标获取元素；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. 实际上 JDK 中 HashMap 的原理要比以上的逻辑复杂一些，还有一些防止 Hash 重复，数组扩容的操作等等；</span><br></pre></td></tr></table></figure>
-<h3 id="3-JDK-1-8中对Hash算法和寻址算法的优化"><a href="#3-JDK-1-8中对Hash算法和寻址算法的优化" class="headerlink" title="3.JDK 1.8中对Hash算法和寻址算法的优化"></a>3.JDK 1.8中对Hash算法和寻址算法的优化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码示例</span></span><br><span class="line">map.push(<span class="string">"张三"</span>, <span class="string">"测试数据"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.在 JDK 1.8 中对 “张三” 这个 key 计算 Hash 值是有一定的优化的</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (key.hashCode())^(h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比如说： 存在一个 key 的 hash 值</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 1111 1010 0111 1100</span></span><br><span class="line"><span class="comment">// 右移16位（h &gt;&gt;&gt; 16）:</span></span><br><span class="line"><span class="comment">// 0000 0000 0000 0000 1111 1111 1111 1111</span></span><br><span class="line"><span class="comment">// 将两个 hash 进行异或运算（对比是否一样）得出新的 hash 值：</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 0000 0101 1000 0011</span></span><br><span class="line"><span class="comment">// 将转换后的异或 hash（32位） 值转int（32位）进行返回；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 寻址算法优化： n 数组长度</span></span><br><span class="line">(n -<span class="number">1</span>) &amp; hash</span><br><span class="line"></span><br><span class="line"><span class="comment">// 假设数组的长度为 16 位，(n -1) &amp; hash 算出的 hash 值如下：</span></span><br><span class="line"><span class="comment">// 0000 0000 0000 0000 0000 0000 0000 1111</span></span><br><span class="line"><span class="comment">// 没有经过优化 key 的 Hash 值如下：</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 1111 1010 0111 1100</span></span><br><span class="line"><span class="comment">// 优化后的新 hash 值：</span></span><br><span class="line"><span class="comment">// 1111 1111 1111 1111 0000 0101 1000 0011</span></span><br><span class="line"><span class="comment">// 取模的运算性能比较差，(n -1) &amp; hash 运算的效果和取模是一样的， 但是性能比取模高的多；</span></span><br><span class="line"><span class="comment">// 如果使用没有优化过的 hash 值进行 &amp; 运算，两个值的区别很小，容易出现多个 key 算出的位置是一样的情况，因此要进行异或运算</span></span><br></pre></td></tr></table></figure>
+            <h3 id="1-HashMap-的底层是数组"><a href="#1-HashMap-的底层是数组" class="headerlink" title="1.HashMap 的底层是数组"></a>1.HashMap 的底层是数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+<span class="line">4</span>
+<span class="line">5</span>
+<span class="line">6</span>
+<span class="line">7</span>
+</pre></td><td class="code"><pre><span class="line"><span class="comment">// 参考代码</span></span>
+<span class="line">HashMap&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span>
+<span class="line">map.push(<span class="string">"张三"</span>，<span class="string">"测试数据1"</span>);</span>
+<span class="line">map.push(<span class="string">"李四"</span>，<span class="string">"测试数据2"</span>);</span>
+<span class="line"></span>
+<span class="line"><span class="comment">// 底层的数据类型简单展示，当然实际上远远没有这么简单，这里是方便理解</span></span>
+<span class="line">[&lt;张三， 测试数据<span class="number">1</span>&gt;, &lt;李四， 测试数据<span class="number">2</span>&gt;]</span>
+</pre></td></tr></table></figure>
+<h3 id="2-底层原理"><a href="#2-底层原理" class="headerlink" title="2.底层原理"></a>2.底层原理</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+<span class="line">4</span>
+<span class="line">5</span>
+<span class="line">6</span>
+<span class="line">7</span>
+<span class="line">8</span>
+</pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 首先会根据<span class="string">'张三'</span>这个 key 计算出它的 Hash 值；</span>
+<span class="line"></span>
+<span class="line"><span class="number">2</span>. 拿到 Hash 值对数组的长度进行取模（数组是有固定长度的），定位到将要存入的数组中的指定位置；</span>
+<span class="line">   [&lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, &lt;张三, 测试数据<span class="number">1</span>&gt;, &lt;&gt;, &lt;李四, 测试数据<span class="number">2</span>&gt;, &lt;&gt;]</span>
+<span class="line">   </span>
+<span class="line"><span class="number">3</span>. 取值原理也是先计算处 Hash 值后进行取模，拿到指定下标获取元素；</span>
+<span class="line"></span>
+<span class="line"><span class="number">4</span>. 实际上 JDK 中 HashMap 的原理要比以上的逻辑复杂一些，还有一些防止 Hash 重复，数组扩容的操作等等；</span>
+</pre></td></tr></table></figure>
+<h3 id="3-JDK-1-8中对Hash算法和寻址算法的优化"><a href="#3-JDK-1-8中对Hash算法和寻址算法的优化" class="headerlink" title="3.JDK 1.8中对Hash算法和寻址算法的优化"></a>3.JDK 1.8中对Hash算法和寻址算法的优化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+<span class="line">4</span>
+<span class="line">5</span>
+<span class="line">6</span>
+<span class="line">7</span>
+<span class="line">8</span>
+<span class="line">9</span>
+<span class="line">10</span>
+<span class="line">11</span>
+<span class="line">12</span>
+<span class="line">13</span>
+<span class="line">14</span>
+<span class="line">15</span>
+<span class="line">16</span>
+<span class="line">17</span>
+<span class="line">18</span>
+<span class="line">19</span>
+<span class="line">20</span>
+<span class="line">21</span>
+<span class="line">22</span>
+<span class="line">23</span>
+<span class="line">24</span>
+<span class="line">25</span>
+<span class="line">26</span>
+<span class="line">27</span>
+<span class="line">28</span>
+</pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码示例</span></span>
+<span class="line">map.push(<span class="string">"张三"</span>, <span class="string">"测试数据"</span>);</span>
+<span class="line"></span>
+<span class="line"><span class="comment">// 1.在 JDK 1.8 中对 “张三” 这个 key 计算 Hash 值是有一定的优化的</span></span>
+<span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span>
+<span class="line">    <span class="keyword">int</span> h;</span>
+<span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (key.hashCode())^(h &gt;&gt;&gt; <span class="number">16</span>);</span>
+<span class="line">&#125;</span>
+<span class="line"></span>
+<span class="line"><span class="comment">// 比如说： 存在一个 key 的 hash 值</span></span>
+<span class="line"><span class="comment">// 1111 1111 1111 1111 1111 1010 0111 1100</span></span>
+<span class="line"><span class="comment">// 右移16位（h &gt;&gt;&gt; 16）:</span></span>
+<span class="line"><span class="comment">// 0000 0000 0000 0000 1111 1111 1111 1111</span></span>
+<span class="line"><span class="comment">// 将两个 hash 进行异或运算（对比是否一样）得出新的 hash 值：</span></span>
+<span class="line"><span class="comment">// 1111 1111 1111 1111 0000 0101 1000 0011</span></span>
+<span class="line"><span class="comment">// 将转换后的异或 hash（32位） 值转int（32位）进行返回；</span></span>
+<span class="line"></span>
+<span class="line"><span class="comment">// 2. 寻址算法优化： n 数组长度</span></span>
+<span class="line">(n -<span class="number">1</span>) &amp; hash</span>
+<span class="line"></span>
+<span class="line"><span class="comment">// 假设数组的长度为 16 位，(n -1) &amp; hash 算出的 hash 值如下：</span></span>
+<span class="line"><span class="comment">// 0000 0000 0000 0000 0000 0000 0000 1111</span></span>
+<span class="line"><span class="comment">// 没有经过优化 key 的 Hash 值如下：</span></span>
+<span class="line"><span class="comment">// 1111 1111 1111 1111 1111 1010 0111 1100</span></span>
+<span class="line"><span class="comment">// 优化后的新 hash 值：</span></span>
+<span class="line"><span class="comment">// 1111 1111 1111 1111 0000 0101 1000 0011</span></span>
+<span class="line"><span class="comment">// 取模的运算性能比较差，(n -1) &amp; hash 运算的效果和取模是一样的， 但是性能比取模高的多；</span></span>
+<span class="line"><span class="comment">// 如果使用没有优化过的 hash 值进行 &amp; 运算，两个值的区别很小，容易出现多个 key 算出的位置是一样的情况，因此要进行异或运算</span></span>
+</pre></td></tr></table></figure>
 <h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h3><ol>
 <li>Hash 算法的优化： 对每个 hash 值，在他的低 16 位中， 让他的高低 16 位都进行异或运算， 让他的低 16 位同时保持了 高 16 位的特征，尽量避免了一些 hash 值后续出现的冲突，即多个不同的 key 存入同一个数组位置</li>
 <li>寻址算法的优化： 用 &amp; 运算代替了取模运算，提高了运算的性能；</li>

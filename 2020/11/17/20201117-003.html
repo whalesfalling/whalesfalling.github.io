@@ -12,7 +12,16 @@
     <meta name="keywords" content="TriDiamond Obsidian,"> 
     <meta name="description" content="路漫漫其修远兮，吾将上下而求索,1. vue页面加载时，v-if标签导致页面闪频解决
 页面添加style,并在 v-if 标签添加调用：
-1234567[v-cloak] &amp;#123;  /* display: none !imp,"> 
+1
+2
+3
+4
+5
+6
+7
+[v-cloak] &amp;#123;
+
+  /* display: ,"> 
     <meta name="author" content="罗韬"> 
     <link rel="alternative" href="atom.xml" title="Whale Fall·T" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -87,13 +96,13 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    3.9k
+                    3.8k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    4 mins.
+                    3 mins.
                 </span>
                 
                 
@@ -129,26 +138,62 @@
         <div class="content markdown animated fadeIn">
             <p><strong>1. vue页面加载时，v-if标签导致页面闪频解决</strong></p>
 <p>页面添加style,并在 v-if 标签添加调用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[v-cloak] &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* display: none !important; */</span></span><br><span class="line"></span><br><span class="line">  visibility: hidden !important;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+<span class="line">4</span>
+<span class="line">5</span>
+<span class="line">6</span>
+<span class="line">7</span>
+</pre></td><td class="code"><pre><span class="line">[v-cloak] &#123;</span>
+<span class="line"></span>
+<span class="line">  <span class="comment">/* display: none !important; */</span></span>
+<span class="line"></span>
+<span class="line">  visibility: hidden !important;</span>
+<span class="line"></span>
+<span class="line">&#125;</span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p>个人建议使用 visibility: hidden ，因为只是显示问题，没必要使用 display: none , 程度没那么严重；</p>
 <p><strong>2. css 字体粗细问题</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">font-weight: bolder;  <span class="comment">// 更粗字体</span></span><br><span class="line"></span><br><span class="line">font-weight: bold;  <span class="comment">// 粗字体</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+</pre></td><td class="code"><pre><span class="line">font-weight: bolder;  <span class="comment">// 更粗字体</span></span>
+<span class="line"></span>
+<span class="line">font-weight: bold;  <span class="comment">// 粗字体</span></span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p><strong>3. css 背景透明</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background: transparent;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+</pre></td><td class="code"><pre><span class="line">background: transparent;</span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p><strong>4. 去除原生 select 下拉框的边框和倒三角</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">border: <span class="number">0</span>; <span class="comment">// 去除边框</span></span><br><span class="line">-webkit-appearance: none; <span class="comment">// 去除倒三角</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+</pre></td><td class="code"><pre><span class="line">border: <span class="number">0</span>; <span class="comment">// 去除边框</span></span>
+<span class="line">-webkit-appearance: none; <span class="comment">// 去除倒三角</span></span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p><strong>5. div 内容上下左右居中</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span><br><span class="line">-webkit-box-align: center;</span><br><span class="line">-webkit-box-pack: center;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+</pre></td><td class="code"><pre><span class="line">display: -webkit-box;</span>
+<span class="line">-webkit-box-align: center;</span>
+<span class="line">-webkit-box-pack: center;</span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p><strong>6. select 下拉框内容靠右 text-align: right; 不生效问题</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">direction: rtl;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+</pre></td><td class="code"><pre><span class="line">direction: rtl;</span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p><strong>7. 按钮圆角</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-border-radius: <span class="number">3</span>rem;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span>
+</pre></td><td class="code"><pre><span class="line">-webkit-border-radius: <span class="number">3</span>rem;</span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p>rem 大小根据实际情况自行定义</p>
 

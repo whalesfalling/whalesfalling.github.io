@@ -14,7 +14,22 @@
 迪米特法则:   最少知道原则，即一个类对自己依赖的类知道的越少越好
 
 迪米特法则代码1:(违反了迪米特法则，不推荐使用)
-123456789101112131415161718192021222,"> 
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+,"> 
     <meta name="author" content="罗韬"> 
     <link rel="alternative" href="atom.xml" title="Whale Fall·T" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -89,13 +104,13 @@
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>文章字数</i>
-                    11k
+                    10k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
-                    10 mins.
+                    9 mins.
                 </span>
                 
                 
@@ -133,7 +148,187 @@
 <p>迪米特法则<strong>:   最少知道原则，即一个类对自己依赖的类知道的越少越好</strong></p>
 </blockquote>
 <p><strong>迪米特法则代码1:(违反了迪米特法则，不推荐使用)</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校总部员工类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 员工编号</span></span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校分院员工类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollegeEmployee</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 员工编号</span></span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校分院员工管理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollegeManager</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 分院员工列表</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;CollegeEmployee&gt; <span class="title">getAllEmployee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;CollegeEmployee&gt; employeeList = <span class="keyword">new</span> ArrayList&lt;CollegeEmployee&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">			CollegeEmployee employee = <span class="keyword">new</span> CollegeEmployee();</span><br><span class="line">			employee.setId(<span class="string">" 分院员工编号 = "</span> + i);</span><br><span class="line">			employeeList.add(employee);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> employeeList;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学校总部员工管理类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SchoolManager</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 总院员工列表</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title">getAllEmployee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;Employee&gt; employeeList = <span class="keyword">new</span> ArrayList&lt;Employee&gt;();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">			Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">			employee.setId(<span class="string">" 总部员工编号 = "</span> + i);</span><br><span class="line">			employeeList.add(employee);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> employeeList;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * CollegeManager 和 SchoolManager 不是直接的关系， CollegeManager 是以局部变量出现在</span></span><br><span class="line"><span class="comment">	 * SchoolManager， 违反了迪米特法则</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> collegeManager</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printAllEmployee</span><span class="params">(CollegeManager collegeManager)</span> </span>&#123;</span><br><span class="line">		List&lt;CollegeEmployee&gt; employeeList = collegeManager.getAllEmployee();</span><br><span class="line">		System.out.println(<span class="string">"-分院员工列表------------- "</span>);</span><br><span class="line">		<span class="keyword">for</span> (CollegeEmployee c : employeeList) &#123;</span><br><span class="line">			System.out.println(c.getId());</span><br><span class="line">		&#125;</span><br><span class="line">		List&lt;Employee&gt; employeeList2 = <span class="keyword">this</span>.getAllEmployee();</span><br><span class="line">		System.out.println(<span class="string">"-总院员工列表------------- "</span>);</span><br><span class="line">		<span class="keyword">for</span> (Employee c : employeeList2) &#123;</span><br><span class="line">			System.out.println(c.getId());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SchoolManager schoolManager = <span class="keyword">new</span> SchoolManager();</span><br><span class="line">		schoolManager.printAllEmployee(<span class="keyword">new</span> CollegeManager());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span>
+<span class="line">2</span>
+<span class="line">3</span>
+<span class="line">4</span>
+<span class="line">5</span>
+<span class="line">6</span>
+<span class="line">7</span>
+<span class="line">8</span>
+<span class="line">9</span>
+<span class="line">10</span>
+<span class="line">11</span>
+<span class="line">12</span>
+<span class="line">13</span>
+<span class="line">14</span>
+<span class="line">15</span>
+<span class="line">16</span>
+<span class="line">17</span>
+<span class="line">18</span>
+<span class="line">19</span>
+<span class="line">20</span>
+<span class="line">21</span>
+<span class="line">22</span>
+<span class="line">23</span>
+<span class="line">24</span>
+<span class="line">25</span>
+<span class="line">26</span>
+<span class="line">27</span>
+<span class="line">28</span>
+<span class="line">29</span>
+<span class="line">30</span>
+<span class="line">31</span>
+<span class="line">32</span>
+<span class="line">33</span>
+<span class="line">34</span>
+<span class="line">35</span>
+<span class="line">36</span>
+<span class="line">37</span>
+<span class="line">38</span>
+<span class="line">39</span>
+<span class="line">40</span>
+<span class="line">41</span>
+<span class="line">42</span>
+<span class="line">43</span>
+<span class="line">44</span>
+<span class="line">45</span>
+<span class="line">46</span>
+<span class="line">47</span>
+<span class="line">48</span>
+<span class="line">49</span>
+<span class="line">50</span>
+<span class="line">51</span>
+<span class="line">52</span>
+<span class="line">53</span>
+<span class="line">54</span>
+<span class="line">55</span>
+<span class="line">56</span>
+<span class="line">57</span>
+<span class="line">58</span>
+<span class="line">59</span>
+<span class="line">60</span>
+<span class="line">61</span>
+<span class="line">62</span>
+<span class="line">63</span>
+<span class="line">64</span>
+<span class="line">65</span>
+<span class="line">66</span>
+<span class="line">67</span>
+<span class="line">68</span>
+<span class="line">69</span>
+<span class="line">70</span>
+<span class="line">71</span>
+<span class="line">72</span>
+<span class="line">73</span>
+<span class="line">74</span>
+<span class="line">75</span>
+<span class="line">76</span>
+<span class="line">77</span>
+<span class="line">78</span>
+<span class="line">79</span>
+<span class="line">80</span>
+<span class="line">81</span>
+<span class="line">82</span>
+<span class="line">83</span>
+<span class="line">84</span>
+<span class="line">85</span>
+<span class="line">86</span>
+<span class="line">87</span>
+<span class="line">88</span>
+<span class="line">89</span>
+<span class="line">90</span>
+</pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span>
+<span class="line"><span class="comment"> * 学校总部员工类</span></span>
+<span class="line"><span class="comment"> */</span></span>
+<span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span>
+<span class="line">	<span class="comment">// 员工编号</span></span>
+<span class="line">	<span class="keyword">private</span> String id;</span>
+<span class="line"></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span>
+<span class="line">		<span class="keyword">return</span> id;</span>
+<span class="line">	&#125;</span>
+<span class="line"></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span>
+<span class="line">		<span class="keyword">this</span>.id = id;</span>
+<span class="line">	&#125;</span>
+<span class="line"></span>
+<span class="line">&#125;</span>
+<span class="line"></span>
+<span class="line"><span class="comment">/**</span></span>
+<span class="line"><span class="comment"> * 学校分院员工类</span></span>
+<span class="line"><span class="comment"> */</span></span>
+<span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollegeEmployee</span> </span>&#123;</span>
+<span class="line">	<span class="comment">// 员工编号</span></span>
+<span class="line">	<span class="keyword">private</span> String id;</span>
+<span class="line"></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</span>
+<span class="line">		<span class="keyword">return</span> id;</span>
+<span class="line">	&#125;</span>
+<span class="line"></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</span>
+<span class="line">		<span class="keyword">this</span>.id = id;</span>
+<span class="line">	&#125;</span>
+<span class="line"></span>
+<span class="line">&#125;</span>
+<span class="line"></span>
+<span class="line"><span class="comment">/**</span></span>
+<span class="line"><span class="comment"> * 学校分院员工管理类</span></span>
+<span class="line"><span class="comment"> */</span></span>
+<span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollegeManager</span> </span>&#123;</span>
+<span class="line">	<span class="comment">// 分院员工列表</span></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> List&lt;CollegeEmployee&gt; <span class="title">getAllEmployee</span><span class="params">()</span> </span>&#123;</span>
+<span class="line">		List&lt;CollegeEmployee&gt; employeeList = <span class="keyword">new</span> ArrayList&lt;CollegeEmployee&gt;();</span>
+<span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span>
+<span class="line">			CollegeEmployee employee = <span class="keyword">new</span> CollegeEmployee();</span>
+<span class="line">			employee.setId(<span class="string">" 分院员工编号 = "</span> + i);</span>
+<span class="line">			employeeList.add(employee);</span>
+<span class="line">		&#125;</span>
+<span class="line">		<span class="keyword">return</span> employeeList;</span>
+<span class="line">	&#125;</span>
+<span class="line">&#125;</span>
+<span class="line"></span>
+<span class="line"><span class="comment">/**</span></span>
+<span class="line"><span class="comment"> * 学校总部员工管理类</span></span>
+<span class="line"><span class="comment"> */</span></span>
+<span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SchoolManager</span> </span>&#123;</span>
+<span class="line">	<span class="comment">// 总院员工列表</span></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title">getAllEmployee</span><span class="params">()</span> </span>&#123;</span>
+<span class="line">		List&lt;Employee&gt; employeeList = <span class="keyword">new</span> ArrayList&lt;Employee&gt;();</span>
+<span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span>
+<span class="line">			Employee employee = <span class="keyword">new</span> Employee();</span>
+<span class="line">			employee.setId(<span class="string">" 总部员工编号 = "</span> + i);</span>
+<span class="line">			employeeList.add(employee);</span>
+<span class="line">		&#125;</span>
+<span class="line">		<span class="keyword">return</span> employeeList;</span>
+<span class="line">	&#125;</span>
+<span class="line"></span>
+<span class="line">	<span class="comment">/**</span></span>
+<span class="line"><span class="comment">	 * CollegeManager 和 SchoolManager 不是直接的关系， CollegeManager 是以局部变量出现在</span></span>
+<span class="line"><span class="comment">	 * SchoolManager， 违反了迪米特法则</span></span>
+<span class="line"><span class="comment">	 * </span></span>
+<span class="line"><span class="comment">	 * <span class="doctag">@param</span> collegeManager</span></span>
+<span class="line"><span class="comment">	 */</span></span>
+<span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printAllEmployee</span><span class="params">(CollegeManager collegeManager)</span> </span>&#123;</span>
+<span class="line">		List&lt;CollegeEmployee&gt; employeeList = collegeManager.getAllEmployee();</span>
+<span class="line">		System.out.println(<span class="string">"-分院员工列表------------- "</span>);</span>
+<span class="line">		<span class="keyword">for</span> (CollegeEmployee c : employeeList) &#123;</span>
+<span class="line">			System.out.println(c.getId());</span>
+<span class="line">		&#125;</span>
+<span class="line">		List&lt;Employee&gt; employeeList2 = <span class="keyword">this</span>.getAllEmployee();</span>
+<span class="line">		System.out.println(<span class="string">"-总院员工列表------------- "</span>);</span>
+<span class="line">		<span class="keyword">for</span> (Employee c : employeeList2) &#123;</span>
+<span class="line">			System.out.println(c.getId());</span>
+<span class="line">		&#125;</span>
+<span class="line">	&#125;</span>
+<span class="line">&#125;</span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span>
+<span class="line">		SchoolManager schoolManager = <span class="keyword">new</span> SchoolManager();</span>
+<span class="line">		schoolManager.printAllEmployee(<span class="keyword">new</span> CollegeManager());</span>
+<span class="line">	&#125;</span>
+</pre></td></tr></table></figure>
 <p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
 <p>解析：对于被依赖的类，不管有多么复杂，都尽量将逻辑封装在类的内部对外除了提供public方法，不对外泄露任何信息；上方代码CollegeManager 和 SchoolManager 不是直接的关系，违反了迪米特法则；</p>
 
